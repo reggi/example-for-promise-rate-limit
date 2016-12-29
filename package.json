@@ -1,0 +1,86 @@
+{
+  "name": "wonder",
+  "version": "1.0.0",
+  "description": "Simple module structure for javascript.",
+  "main": "index.js",
+  "author": "Thomas Reggi",
+  "license": "MIT",
+  "scripts": {
+    "start:expressAppForShopify:src:tunnel": "lt --port=3000",
+    "start:expressAppForShopify:src": "DEBUG=libreggi* PORT=3000 nodemon --exec babel-node ./src/expressAppForShopify/bin",
+    "babel-node": "babel-node",
+    "ava": "ava",
+    "standard": "standard",
+    "nyc-ava": "nyc ava",
+    "open-report": "open ./coverage/index.html",
+    "nyc-report-ava": "NODE_ENV=test nyc ava && nyc report --reporter=html && yarn run open-report --fail-fast",
+    "build": "NODE_ENV=production babel ./src --out-dir ./lib",
+    "test": "npm run nyc-report-ava"
+  },
+  "devDependencies": {
+    "ava": "^0.17.0",
+    "babel-cli": "^6.18.0",
+    "babel-eslint": "^7.1.1",
+    "babel-plugin-istanbul": "^3.0.0",
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-preset-latest": "^6.16.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "babel-preset-stage-1": "^6.16.0",
+    "babel-preset-stage-2": "^6.18.0",
+    "babel-preset-stage-3": "^6.17.0",
+    "babel-register": "^6.18.0",
+    "nodemon": "^1.11.0",
+    "nyc": "^10.0.0",
+    "standard": "^8.6.0",
+    "supertest": "^2.0.1",
+    "supertest-as-promised": "^4.0.2"
+  },
+  "dependencies": {
+    "bluebird": "^3.4.7"
+  },
+  "ava": {
+    "require": [
+      "babel-register"
+    ],
+    "files": [
+      "src/**/test.js"
+    ]
+  },
+  "nyc": {
+    "exclude": [
+      "src/**/test.js"
+    ],
+    "sourceMap": false,
+    "instrument": false
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "ignore": [
+      "lib"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "latest",
+      "stage-0",
+      "stage-1",
+      "stage-2",
+      "stage-3"
+    ],
+    "plugins": [
+      "transform-runtime"
+    ],
+    "env": {
+      "production": {
+        "ignore": [
+          "src/**/test.js"
+        ]
+      },
+      "test": {
+        "plugins": [
+          "istanbul"
+        ]
+      }
+    }
+  }
+}
